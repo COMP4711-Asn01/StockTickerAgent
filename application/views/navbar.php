@@ -21,12 +21,6 @@
     </a>
 </div>
 
-<div class="ui center aligned three column grid">
-    <div class="column">first</div>
-    <div class="column">second</div>
-    <div class="column">third</div>
-</div>
-
 <div class="ui modal">
   <div class="ui middle aligned center aligned grid">
   <div class="column">
