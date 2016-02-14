@@ -1,0 +1,6 @@
+/nbproject/private/
+/nbproject
+*~
+application/config/development/
+/StockTicker-BogusData.ods
+/stockticker.sql
