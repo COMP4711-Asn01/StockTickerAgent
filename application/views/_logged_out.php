@@ -29,12 +29,12 @@
         <div class="ui fluid large black submit button">Login</div>
       </div>
 
-      <div class="ui error message"></div>
+        <div class="ui {login_errors_visible} error message">{login_errors}</div>
 
     </form>
 
     <div class="ui message">
-      New to us? <a href="#">Sign Up</a>
+      New to us? <a href="">Sign Up</a>
     </div>
   </div>
   </div>
