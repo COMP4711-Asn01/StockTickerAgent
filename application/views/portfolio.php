@@ -55,6 +55,8 @@
             <tr>
                 <th>Stock</th>
                 <th>Amount</th>
+                <th>Buy</th>
+                <th>Sell</th>
             </tr>
             </thead>
             
@@ -63,6 +65,8 @@
             <tr>
                 <td>{stock}</td>
                 <td>{amount}</td>
+                <td><a title="Click to purchase stock" href="#" onclick="BuyStock('{stock}');return false;">Buy</a></td>
+                <td><a title="Click to sell stock" href="#" onclick="SellStock('{stock}');return false;">Sell</a></td>
             </tr>
             {/holdings}
             </tbody>

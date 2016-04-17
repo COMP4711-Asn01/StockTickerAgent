@@ -28,7 +28,7 @@ class Welcome extends MY_Controller {
 	public function index()
 	{
             $this->load->model('stocks');
-            $this->load->model('players');
+            $this->load->model('users');
             $this->data['pagebody'] = 'overview';
             $this->data['title'] = 'Overview';
             $this->data['page_title'] = 'Stock Ticker Agent';
@@ -40,11 +40,11 @@ class Welcome extends MY_Controller {
             $this->data['stocks'] = $source;
             
             //Load the player information and save it in the 'players' $this->data index
-            $source = $this->players->all();
+            $source = $this->users->all();
             $players = array();
             foreach ($source as $row)
             {
-                $players[] = array('name' => $row->Player, 'cash' => $row->Cash);
+                $players[] = array('name' => $row->username, 'cash' => 'no data');
             }
             $this->data['players'] = $players;
             
