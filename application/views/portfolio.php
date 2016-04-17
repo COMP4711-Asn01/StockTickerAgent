@@ -1,19 +1,7 @@
-<h1>Player Information</h1>
-<h2>{name}</h2>
+<h1>{name}'s Portfolio</h1>
 
 <form accept-charset="utf-8" method="post" action="portfolio">
-    <fieldset>
-        <legend> </legend>
-        Players:
-        <select name="player_info" onchange="this.form.submit()"> 
-        <?php   
-            echo '<option value="recent" selected>Select Player</option>';
-            echo '{players}';
-            echo '<option value="{player}">{player}</option>';
-            echo '{/players}';
-        ?>
-        </select>
-    </fieldset>
+
 </form>
 
 <br/>
