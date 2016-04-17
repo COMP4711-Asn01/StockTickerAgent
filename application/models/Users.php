@@ -6,8 +6,8 @@
  * and open the template in the editor.
  */
 
-class Stocks extends MY_Model2 {
-    function __construct() {
-        parent::__construct("data/stocks", "code");
+class Users extends My_Model {
+    public function __construct() {
+        parent::__construct("users", "userid");
     }
 }

@@ -3,16 +3,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 
 <!DOCTYPE html>
-<html>
+
 {main_head}
 
-<body class="base">
+<body>
 
 {main_navbar}
 
-<div class="ui segment" id="content">
-    {main_content}
-</div>
+{main_content}
 
 </body>
 </html>
