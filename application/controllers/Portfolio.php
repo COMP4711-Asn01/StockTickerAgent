@@ -17,12 +17,12 @@ class Portfolio extends MY_Controller {
     {
         $this->init_setup();
         
-        $this->player_list();
+        //$this->player_list();
         $this->activity();
         $this->holdings();
         $this->render();
     }
-    
+    /*
     public function player_list() 
     {
         $player = $this->players->all();
@@ -37,11 +37,12 @@ class Portfolio extends MY_Controller {
         }
         $this->data['players'] = $players;
     }
-    
+    */
     private function init_setup() 
     {
-        $this->load->model('players');
         $this->load->model('transactions');
+        $this->load->model('stocks');
+        $this->load->model('certificates');
         $this->data['pagebody'] = 'portfolio';
         $this->data['title'] = 'Portfolio';
         $this->data['page_title'] = 'Stock Ticker Agent';
@@ -52,68 +53,32 @@ class Portfolio extends MY_Controller {
     
     public function holdings()
     {
-        $holding_data = $this->transactions->all();
-        //$holder = array();
-        $stock = array();
-        $amount = array();
-        $trans = array();
-            
+        $holdings = array();
+        $stocks = $this->stocks->all();
         
-        $selectedPlayer = 'recent';
-        
-        if(isset($_POST['player_info']))
-        {
-            $selectedPlayer = $_POST['player_info'];
-        }
-
-                
-        if(is_null($selectedPlayer) || $selectedPlayer == 'recent') 
-        {
-            $selectedPlayer = $this->session->userdata('name');
+        foreach($stocks as $stock) {
+            $holdings[$stock['code']] = 0;
         }
         
-        foreach($holding_data as $data) { // $data is an array
-            if($selectedPlayer != $data->Player) {
-                continue;
-            }
-            array_push($stock, $data->Stock);
-            array_push($amount, $data->Quantity);
-            array_push($trans, $data->Trans);  
-        }
-        
-        for($i=0; $i < sizeof($stock); $i++) {    
-           if($trans[$i] == 'sell') {
-               $amount[$i] *= (-1);
-           }
-        }
-        
-        $holder = array();
-        $new_stock = array();
-        $new_amount = array();
-        for($i=1; $i < sizeof($stock); $i++) {  
-            if($i-1 == 0) {
-                array_push($new_stock, $stock[$i-1]);
-                array_push($new_amount, $amount[$i-1]);
-            }
-            
-            if(in_array($stock[$i], $new_stock)) {
-                $index = array_search($stock[$i], $new_stock);
-                $new_amount[$index] += $amount[$i];
+        $certificates = $this->certificates->some('player', $this->session->userdata('name'));
+        //count owned stocks
+        foreach($certificates as $row) {
+            if (array_key_exists($row->stock, $holdings)) {
+                $holdings[$row->stock] += $row->quantity;
             } else {
-                array_push($new_stock, $stock[$i]);
-                array_push($new_amount, $amount[$i]);
+                //remove delisted stocks
+                $this->certificates->removeStock($row->stock);
             }
         }
         
-        for($i=0; $i < sizeof($new_stock); $i++) {
-            
-             $holder[] = array(
-                'stock' => $new_stock[$i],
-                'amount' => $new_amount[$i]
+        $this->data['holdings'] = array();
+        foreach($holdings as $key=>$value) {
+            $this->data['holdings'][] = array(
+                'stock' => $key,
+                'amount' => $value
             );
         }
-       
-        $this->data['holdings'] = $holder;
+        return;
     }
     
     
@@ -147,5 +112,37 @@ class Portfolio extends MY_Controller {
             }
         }
         $this->data['transactions'] = $activity;
+    }
+    
+    public function buy($stock, $quantity) {
+        $this->load->model('stocks');
+        
+        $result = $this->stocks->buy($stock, $quantity);
+        
+        $this->data['pagebody'] = 'transaction_results';
+        $this->data['title'] = 'Portfolio';
+        $this->data['page_title'] = 'Stock Ticker Agent';
+        $this->data['active_tab'] = 'Portfolio';
+        $this->data['name'] = $this->session->userdata('name');
+        $this->session->set_flashdata('redirectToCurrent', current_url());
+        $this->data['message'] = $result;
+        
+        $this->render();
+    }
+    
+    public function sell($stock, $quantity) {
+        $this->load->model('stocks');
+        
+        $result = $this->stocks->sell($stock, $quantity);
+        
+        $this->data['pagebody'] = 'transaction_results';
+        $this->data['title'] = 'Portfolio';
+        $this->data['page_title'] = 'Stock Ticker Agent';
+        $this->data['active_tab'] = 'Portfolio';
+        $this->data['name'] = $this->session->userdata('name');
+        $this->session->set_flashdata('redirectToCurrent', current_url());
+        $this->data['message'] = $result;
+        
+        $this->render();
     }
 }
