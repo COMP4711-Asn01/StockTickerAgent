@@ -16,28 +16,10 @@ class Portfolio extends MY_Controller {
     public function index() 
     {
         $this->init_setup();
-        
-        //$this->player_list();
         $this->activity();
         $this->holdings();
         $this->render();
     }
-    /*
-    public function player_list() 
-    {
-        $player = $this->players->all();
-        $players = array();
-        
-        foreach($player as $data)
-        {
-            $players[] = array(
-                'player'    => $data->Player,
-                'cash'      => $data->Cash
-            );
-        }
-        $this->data['players'] = $players;
-    }
-    */
     private function init_setup() 
     {
         $this->load->model('transactions');
@@ -112,7 +94,6 @@ class Portfolio extends MY_Controller {
             }
         }
         $this->data['transactions'] = $activity;
-        
     }
     
     public function buy($stock, $quantity) {

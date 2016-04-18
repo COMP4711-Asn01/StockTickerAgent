@@ -23,5 +23,3 @@
     <br/> -Check server status.
     <br/> -Password was incorrect.
 </p>
-
-
