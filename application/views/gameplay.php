@@ -10,9 +10,9 @@
 </script>
  
 
-<div class="ui center aligned two column grid">
+<div class="ui center aligned three column grid">
     <div class="column">
-        <h2>{Name}</h2>
+        <h2>{name}</h2>
         <div class = "row">
             <img src="./assets/avatar/{avatar}" />
         </div>
@@ -25,7 +25,11 @@
         <div class="row">
             <h4>Cash: {cash}</h4>
             <h4>Equity: {equity}</h4>
-            <h4>{status}</h4>
+            <h3>Status</h3>
+            <h4>Round: {round}</h4>
+            <h4>State: {state}</h4>
+            <h4>Duration: {duration}</h4>
+            <h4>Countdown: {countdown}</h4>
         </div>
     </div>
     
@@ -37,20 +41,40 @@
             <tr>
                 <th>Stock</th>
                 <th>Amount</th>
-                <th>Buy</th>
-                <th>Sell</th>
             </tr>
             </thead>
             
             <tbody>
-            {holdings}
+            {portfolio}
             <tr>
                 <td>{stock}</td>
                 <td>{amount}</td>
-                <td><a title="Click to purchase stock" href="#" onclick="BuyStock('{stock}');return false;">Buy</a></td>
                 <td><a title="Click to sell stock" href="#" onclick="SellStock('{stock}');return false;">Sell</a></td>
             </tr>
-            {/holdings}
+            {/portfolio}
+            </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div class="column">
+        <h2>Market</h2>
+        <div class="row">
+            <table class="ui celled table">
+            <thead>
+            <tr>
+                <th>Stock</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            
+            <tbody>
+            {market}
+            <tr>
+                <td>{stockitem}</td>
+                <td><a title="Click to purchase stock" href="#" onclick="BuyStock('{stock}');return false;">Buy</a></td>
+            </tr>
+            {/market}
             </tbody>
             </table>
         </div>
