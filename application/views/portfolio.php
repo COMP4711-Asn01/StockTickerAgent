@@ -1,7 +1,19 @@
-<h1>{name}'s Portfolio</h1>
+<h1>Player Information</h1>
+<h2>{name}</h2>
 
 <form accept-charset="utf-8" method="post" action="portfolio">
-
+    <fieldset>
+        <legend> </legend>
+        Players:
+        <select name="player_info" onchange="this.form.submit()"> 
+        <?php   
+            echo '<option value="recent" selected>Select Player</option>';
+            echo '{players}';
+            echo '<option value="{player}">{player}</option>';
+            echo '{/players}';
+        ?>
+        </select>
+    </fieldset>
 </form>
 
 <br/>
@@ -43,6 +55,8 @@
             <tr>
                 <th>Stock</th>
                 <th>Amount</th>
+                <th>Buy</th>
+                <th>Sell</th>
             </tr>
             </thead>
             
@@ -51,6 +65,8 @@
             <tr>
                 <td>{stock}</td>
                 <td>{amount}</td>
+                <td><a title="Click to purchase stock" href="#" onclick="BuyStock('{stock}');return false;">Buy</a></td>
+                <td><a title="Click to sell stock" href="#" onclick="SellStock('{stock}');return false;">Sell</a></td>
             </tr>
             {/holdings}
             </tbody>
