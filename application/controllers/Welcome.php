@@ -1,58 +1,98 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
 class Welcome extends MY_Controller {
+    function __construct() 
+    {
+        parent::__construct();
+        $this->load->helper('url');
+    }
+    public function index() 
+    {
+        $this->init_setup();
+        $this->stock_list();
+        $this->movement();
+        $this->transactions();
+        $this->players();
+        
+        $this->render();
+    }
 
+    private function init_setup() 
+    {
+        $this->load->model('transactions');
+        $this->load->model('movements');
+        $this->load->model('stocks');
+        $this->load->model('users');
+        $this->data['pagebody'] = 'overview';
+        $this->data['title'] = 'Dashboard';
+        $this->data['page_title'] = 'Stock Ticker Agent';
+        $this->data['active_tab'] = 'Dashboard';
+        $this->session->set_flashdata('redirectToCurrent', current_url());
+    }
     
-        function __construct()
+    public function stock_list() 
+    {
+        $this->data['stocks'] = $this->stocks->all('desc');
+    }
+    
+    public function players()
+    {
+        $source = $this->users->all();
+        $players = array();
+        foreach ($source as $row)
         {
-                parent::__construct();
+            $players[] = array('player' => $row->username, 'equity' => 0);
         }
+        $this->data['players'] = $players;
+    }
     
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
-	 */
-	public function index()
-	{
-            $this->load->model('stocks');
-            $this->load->model('players');
-            $this->session->set_flashdata('redirectToCurrent', current_url());
-            $this->data['pagebody'] = 'overview';
-            $this->data['title'] = 'Overview';
-            $this->data['page_title'] = 'Stock Ticker Agent';
-            $this->data['active_tab'] = 'Overview';
-            
-            //Load the stock information and save it in the 'stocks' $this->data index
-            $source = $this->stocks->all();
-            $stocks = array();
-            foreach ($source as $record)
-            {
-                $stocks[] = array('code' => $record['Code'], 'name' => $record['Name'], 'category' => $record['Category'], 'value' => $record['Value']);
-            }
-            $this->data['stocks'] = $stocks;
-            
-            //Load the player information and save it in the 'players' $this->data index
-            $source = $this->players->all();
-            $players = array();
-            foreach ($source as $record)
-            {
-                $players[] = array('name' => $record['Player'], 'cash' => $record['Cash']);
-            }
-            $this->data['players'] = $players;
-            
-            //Assemble the page and spit back to user!  See MY_Controller for render().
-            $this->render();
+    public function movement()
+    {
+        $movement_data_filtered = $this->movements->all('desc');
+        
+        if (count($movement_data_filtered) > 10) {
+            $movement_data_short = array_slice($movement_data_filtered, 0, 10);
+        } else {
+            $movement_data_short = $movement_data_filtered;
         }
+        
+        //change format of datetime field
+        foreach($movement_data_short as $key=>$value) {
+            $dt = new DateTime();
+            $dt->setTimestamp($value['datetime']);
+            $movement_data_short[$key]['datetime'] = $dt->format('Y-m-d H:i:s');
+        }
+        
+        $this->data['movements'] = $movement_data_short;
+    }
+    
+    /*
+     * Sets transaction data according to the type of stock from the most recent 
+     * data. Default data is the most recent stock.
+     */
+    public function transactions() 
+    {
+        $transaction_data_filtered = $this->transactions->all('desc');
+        
+        if (count($transaction_data_filtered) > 10) {
+            $transaction_data_short = array_slice($transaction_data_filtered, 0, 10);
+        } else {
+            $transaction_data_short = $transaction_data_filtered;
+        }
+        
+        //change format of datetime field
+        foreach($transaction_data_short as $key=>$value) {
+            $dt = new DateTime();
+            $dt->setTimestamp($value['datetime']);
+            $transaction_data_short[$key]['datetime'] = $dt->format('Y-m-d H:i:s');
+        }
+        
+        $this->data['transactions'] = $transaction_data_short;
+    }
 }

@@ -6,5 +6,6 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="/assets/js/semantic.js"></script>
 <script src="/assets/js/main.js"></script>
+<script src="/assets/js/buysell.js"></script>
 <title>{title}</title>
 </head>
