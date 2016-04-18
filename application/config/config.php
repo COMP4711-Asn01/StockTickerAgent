@@ -6,16 +6,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $config['menu_choices'] = array(
     'menudata' => array(
         array('name' => 'Connect App',  'link' => '/registration',          'active' => '', 'class' => 'adjust icon'),
-        array('name' => 'Overview',  'link' => '/',          'active' => '', 'class' => 'home icon'),
+        array('name' => 'Overview',  'link' => '/',                         'active' => '', 'class' => 'home icon'),
     )
 );
 // For users with player role
 $config['menu_choices1'] = array(
     'menudata' => array(
         array('name' => 'Connect App',  'link' => '/registration',          'active' => '', 'class' => 'adjust icon'),
-        array('name' => 'Overview',  'link' => '/',          'active' => '', 'class' => 'home icon'),
-        array('name' => 'Portfolio', 'link' => '/portfolio', 'active' => '', 'class' => 'heartbeat icon'),
-        array('name' => 'Stocks',    'link' => '/stock',     'active' => '', 'class' => 'line chart icon'),
+        array('name' => 'Overview',  'link' => '/',                         'active' => '', 'class' => 'home icon'),
+        array('name' => 'Portfolio', 'link' => '/portfolio',                'active' => '', 'class' => 'heartbeat icon'),
+        array('name' => 'Stocks',    'link' => '/stock',                    'active' => '', 'class' => 'line chart icon'),
+        array('name' => 'Gameplay',    'link' => '/gameplay',               'active' => '', 'class' => 'game icon'),
     )
 );
 // For users with admin role
