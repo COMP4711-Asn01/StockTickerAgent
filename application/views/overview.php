@@ -6,7 +6,7 @@
             <form action="stock" method="post">
             <table class="ui celled table">
             <thead>
-              <th>Name</th>
+              <th>Stock</th>
               <th>Value</th>
             </tr></thead>
             <tbody>

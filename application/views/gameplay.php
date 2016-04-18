@@ -14,7 +14,7 @@
     <div class="column">
         <h2>{name}</h2>
         <div class = "row">
-            <img src="./assets/avatar/{avatar}" />
+            <img src="./assets/avatar/{name}" />
         </div>
         <div class = "row">
             <form class="upload_form" action="upload/upload_it" enctype="multipart/form-data" method="post" accept-charset="utf-8">

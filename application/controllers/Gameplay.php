@@ -95,4 +95,26 @@ class Gameplay extends MY_Controller {
         }
         return;
     }
+    
+    //untested, incomplete
+    function upload()
+    {
+        $name = $this->session->userdata('name');
+        
+        $config['upload_path'] = './assets/avatar/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size']	= '100';
+        $config['max_width']  = '1024';
+        $config['max_height']  = '768';
+        $config['file_name'] = $name;
+         
+        $this->load->library('upload', $config);
+
+        if ( ! $this->upload->upload())
+        {
+            return;
+        }
+        else
+            $this->render();
+    }
 }
