@@ -7,3 +7,5 @@ application/config/development/
 data/*.xml
 data/*.csv
 temp.csv
+
+.idea/
