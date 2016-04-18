@@ -68,6 +68,4 @@ class Manager extends MY_Controller {
         $this->data['active_tab'] = 'Manager';
         $this->session->set_flashdata('redirectToCurrent', current_url());
     }
-    
-    
 }
