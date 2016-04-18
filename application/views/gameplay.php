@@ -71,7 +71,7 @@
             <tbody>
             {market}
             <tr>
-                <td>{stockitem}</td>
+                <td>{code}</td>
                 <td><a title="Click to purchase stock" href="#" onclick="BuyStock('{stock}');return false;">Buy</a></td>
             </tr>
             {/market}

@@ -12,7 +12,7 @@
             <tbody>
                 {stocks}
                     <tr>
-                        <td>{stock}</td>
+                        <td>{code}</td>
                         <td>{value}</td>
                     </tr>
                 {/stocks}
@@ -29,11 +29,13 @@
             <table class="ui celled table">
             <thead>
               <tr><th>Player</th>
+                  <th>Equity</th>
             </tr></thead>
             <tbody>
                 {players}
                 <tr>
                     <td>{player}<img src="{avatar}" height="30" width="30"></td>
+                    <td>{equity}</td>
                 </tr>                
                 {/players}
             </tbody>
