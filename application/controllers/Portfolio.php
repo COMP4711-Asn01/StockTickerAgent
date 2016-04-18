@@ -112,6 +112,7 @@ class Portfolio extends MY_Controller {
             }
         }
         $this->data['transactions'] = $activity;
+        
     }
     
     public function buy($stock, $quantity) {
