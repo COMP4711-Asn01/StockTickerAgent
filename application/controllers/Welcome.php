@@ -25,6 +25,8 @@ class Welcome extends MY_Controller {
     private function init_setup() 
     {
         $this->load->model('transactions');
+        $this->load->model('users');
+        $this->load->model('movements');
         $this->load->model('stocks');
         $this->data['pagebody'] = 'dashboard';
         $this->data['title'] = 'Dashboard';
