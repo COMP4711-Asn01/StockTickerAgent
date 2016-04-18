@@ -83,13 +83,13 @@ class Portfolio extends MY_Controller {
         
         foreach($activity_data as $data)
         {
-            if($data->Player == $selectedPlayer) // Filtering for type of stock
+            if($data['player'] == $selectedPlayer) // Filtering for type of stock
             { 
                 $activity[] = array(
-                 'datetime'      => $data->DateTime,
-                 'stock'         => $data->Stock,
-                 'transaction'   => $data->Trans,
-                 'quantity'      => $data->Quantity
+                 'datetime'      => $data['datetime'],
+                 'stock'         => $data['stock'],
+                 'transaction'   => $data['trans'],
+                 'quantity'      => $data['quantity']
                 );
             }
         }
